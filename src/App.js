@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { Link, Route, withRouter, Switch } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 import { handleInitialData } from './actions/shared';
@@ -17,36 +17,55 @@ class App extends Component {
   }
 
   render() {
+    const { location } = this.props
+
     return (
-      <BrowserRouter>
         <div>
           <Menu>
-            <Menu.Item name='home' as={Link} to='/'>
+            <Menu.Item
+              name='home'
+              active={location.pathname === '/'}
+              as={Link}
+              to='/'>
               Home
             </Menu.Item>
 
-            <Menu.Item name='submit' as={Link} to='/add'>
+            <Menu.Item
+              name='submit'
+              active={location.pathname === '/add'}
+              as={Link}
+              to='/add'>
               Ask Question
             </Menu.Item>
 
-            <Menu.Item name='submit' as={Link} to='/leaderboard'>
+            <Menu.Item
+              name='submit'
+              active={location.pathname === '/leaderboard'}
+              as={Link}
+              to='/leaderboard'>
               Leaderboard
             </Menu.Item>
 
             <Menu.Menu position='right'>
-              <Menu.Item name='login' as={Link} to='/login'>
+              <Menu.Item
+                name='login'
+                active={location.pathname === '/login'}
+                as={Link}
+                to='/login'>
                 Login
               </Menu.Item>
             </Menu.Menu>
           </Menu>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/add" component={NewQuestion}/>
-          <Route exact path="/leaderboard" component={Leaderboard}/>
-          <Route exact path="/login" component={Login} />
+
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/add" component={NewQuestion}/>
+            <Route exact path="/leaderboard" component={Leaderboard}/>
+            <Route exact path="/login" component={Login} />
+          </Switch>
         </div>
-      </BrowserRouter>
     );
   }
 }
 
-export default connect()(App);
+export default withRouter(connect()(App));
