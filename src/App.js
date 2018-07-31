@@ -14,6 +14,10 @@ class App extends Component {
   }
 
   render() {
+    if (this.props.loading) {
+      return <div>Loading...</div>;
+    }
+
     return (
       <div>
         <Navbar/>
@@ -23,4 +27,10 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect()(App));
+const mapStateToProps = ({ authedUser }) => {
+  return {
+    loading: authedUser === null
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(App));
