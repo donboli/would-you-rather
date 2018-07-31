@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Route, withRouter, Switch } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 import { handleInitialData } from './actions/shared';
 import './App.css';
 
-import { Home } from './Home';
-import { NewQuestion } from './NewQuestion';
-import { Leaderboard } from './Leaderboard';
-import { Login } from './Login';
+import { Content } from './Content';
 
 class App extends Component {
   componentDidMount() {
@@ -57,12 +54,7 @@ class App extends Component {
             </Menu.Menu>
           </Menu>
 
-          <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route exact path="/add" component={NewQuestion}/>
-            <Route exact path="/leaderboard" component={Leaderboard}/>
-            <Route exact path="/login" component={Login} />
-          </Switch>
+          <Content/>
         </div>
     );
   }
