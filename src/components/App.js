@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { handleInitialData } from './actions/shared';
+import { handleInitialData } from '../actions/shared';
 import './App.css';
 
 import { Content } from './Content';
