@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Tab } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import Question from './Question';
 
 class Home extends Component {
   render () {
@@ -8,11 +9,11 @@ class Home extends Component {
 
     const panes = [
       { menuItem: 'Answered', render: () => <Tab.Pane attached={false}>
-        { answered.map(question => <div key={question.id}>{question.optionOne.text}{question.optionTwo.text}</div>) }
+        {answered.map(question => <Question key={question.id} id={question.id}/>) }
       </Tab.Pane> },
       { menuItem: 'Unanswered', render: () => <Tab.Pane attached={false}>
-        { unanswered.map(question => <div key={question.id}>{question.optionOne.text}{question.optionTwo.text}</div>) }
-      </Tab.Pane> },
+        {unanswered.map(question => <Question key={question.id} id={question.id} />) }
+      </Tab.Pane> }
     ]
 
     return (
