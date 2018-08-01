@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Card, Image, Button } from 'semantic-ui-react';
 
 class Question extends Component {
+  navigateToPoll = () => {
+    this.props.history.push(`/questions/${this.props.id}`);
+  }
+
   render() {
     const { autherInfo, optionOne } = this.props;
 
@@ -13,11 +18,11 @@ class Question extends Component {
           <Card.Header>{autherInfo.name} asks</Card.Header>
           <Card.Meta>Would You Rather...</Card.Meta>
         </Card.Content>
-        <Card.Content description>
+        <Card.Content>
           {optionOne.text}...
         </Card.Content>
         <Card.Content extra>
-          <Button basic fluid color='blue'>
+          <Button basic fluid color='blue' onClick={this.navigateToPoll}>
             View Poll
           </Button>
         </Card.Content>
@@ -36,4 +41,4 @@ const mapStateToProps = ({ questions, users }, { id }) => {
   }
 };
 
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(Question));

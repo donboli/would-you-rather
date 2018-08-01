@@ -4,22 +4,26 @@ import { Card, Image, Button } from 'semantic-ui-react';
 
 class Question extends Component {
   render () {
-    const { autherInfo, optionOne, optionTwo } = this.props;
+    const { authorInfo, question } = this.props;
+
+    if (question) {
+      // TODO: Redirect to 404
+    }
 
     return (
       <Card>
         <Card.Content>
-          <Image floated='right' size='mini' src={autherInfo.avatarURL} />
+          <Image floated='right' size='mini' src={authorInfo.avatarURL} />
           <Card.Header>Would You Rather...</Card.Header>
-          <Card.Meta>{ autherInfo.name }</Card.Meta>
+          <Card.Meta>{ authorInfo.name }</Card.Meta>
         </Card.Content>
         <Card.Content extra>
           <div className='ui two buttons'>
             <Button basic color='green'>
-              {optionOne.text}
+              {question.optionOne.text}
             </Button>
             <Button basic color='red'>
-              {optionTwo.text}
+              {question.optionTwo.text}
           </Button>
           </div>
         </Card.Content>
@@ -28,14 +32,13 @@ class Question extends Component {
   }
 }
 
-const mapStateToProps = ({ questions, users }, { id }) => {
-  const { author, optionOne, optionTwo } = questions[id];
-  const autherInfo = users[author];
+const mapStateToProps = ({ questions, users }, ownProps) => {
+  const question = questions[ownProps.match.params.question_id];
+  const authorInfo = question ? users[question.author] : null
 
   return {
-    autherInfo,
-    optionOne,
-    optionTwo
+    question,
+    authorInfo
   }
 };
 
