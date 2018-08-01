@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from './Home';
-import { NewQuestion } from './NewQuestion';
-import { Leaderboard } from './Leaderboard';
-import { Login } from './Login';
+import Home from '../home/Home';
+import { NewQuestion } from '../question/NewQuestion';
+import { Leaderboard } from '../leaderboard/Leaderboard';
+import { Login } from '../login/Login';
 
 export class Content extends Component {
   render () {

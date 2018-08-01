@@ -14,7 +14,7 @@ class Navbar extends Component {
           as={Link}
           to='/'>
           Home
-                  </Menu.Item>
+        </Menu.Item>
 
         <Menu.Item
           name='submit'
@@ -22,7 +22,7 @@ class Navbar extends Component {
           as={Link}
           to='/add'>
           Ask Question
-                  </Menu.Item>
+        </Menu.Item>
 
         <Menu.Item
           name='submit'
@@ -30,7 +30,7 @@ class Navbar extends Component {
           as={Link}
           to='/leaderboard'>
           Leaderboard
-                  </Menu.Item>
+        </Menu.Item>
 
         <Menu.Menu position='right'>
           <Menu.Item
@@ -39,7 +39,7 @@ class Navbar extends Component {
             as={Link}
             to='/login'>
             Login
-                    </Menu.Item>
+          </Menu.Item>
         </Menu.Menu>
       </Menu>
     )
