@@ -23,10 +23,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = ({ questions, authedUser, users, }) => {
-  const answered = Object.keys(users[authedUser].answers)
-    .map(questionID => questions[questionID]);
+  const answeredIds = Object.keys(users[authedUser].answers)
+
+  const answered = answeredIds.map(questionID => questions[questionID]);
   const unanswered = Object.keys(questions)
-    .filter(question => !answered.includes(question.id))
+    .filter(questionId => !answeredIds.includes(questionId))
     .map(questionID => questions[questionID]);
 
   return {

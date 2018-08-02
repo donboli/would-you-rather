@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Card, Image, Button } from 'semantic-ui-react';
 
+import { handleAnswerQuestion } from '../../actions/users';
+
 class Question extends Component {
+  saveQuestionAnswer(answer) {
+    this.props.saveQuestionAnswer({
+      qid: this.props.question.id,
+      answer
+    }, () => {
+      this.props.history.push(`/`);
+    });
+  }
+
   render () {
     const { authorInfo, question } = this.props;
 
@@ -19,10 +31,16 @@ class Question extends Component {
         </Card.Content>
         <Card.Content extra>
           <div className='ui two buttons'>
-            <Button basic color='green'>
+            <Button
+              basic
+              color='green'
+              onClick={this.saveQuestionAnswer.bind(this, 'optionOne')}>
               {question.optionOne.text}
             </Button>
-            <Button basic color='red'>
+            <Button
+              basic
+              color='red'
+              onClick={this.saveQuestionAnswer.bind(this, 'optionTwo')}>
               {question.optionTwo.text}
           </Button>
           </div>
@@ -42,4 +60,10 @@ const mapStateToProps = ({ questions, users }, ownProps) => {
   }
 };
 
-export default connect(mapStateToProps)(Question);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveQuestionAnswer: (answer, cb) => dispatch(handleAnswerQuestion(answer, cb))
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Question));
