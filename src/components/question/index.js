@@ -1,2 +1,2 @@
 export { default as Question } from './Question';
-export { NewQuestion } from './NewQuestion';
+export { default as NewQuestion } from './NewQuestion';
