@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Card, Image, Button } from 'semantic-ui-react';
 
-import { handleAnswerQuestion } from '../../actions/users';
+import { handleAnswerQuestion } from '../../actions/shared';
 
 class Question extends Component {
   saveQuestionAnswer(answer) {

@@ -1,5 +1,5 @@
-import { RECEIVE_USERS, ANSWER_QUESTION } from "../actions/users";
-import { CREATE_QUESTION } from "../actions/shared";
+import { RECEIVE_USERS } from "../actions/users";
+import { CREATE_QUESTION, ANSWER_QUESTION } from "../actions/shared";
 
 export default function users (state = {}, action) {
   switch (action.type) {
