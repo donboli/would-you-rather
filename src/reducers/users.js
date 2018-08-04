@@ -1,4 +1,5 @@
 import { RECEIVE_USERS, ANSWER_QUESTION } from "../actions/users";
+import { CREATE_QUESTION } from "../actions/shared";
 
 export default function users (state = {}, action) {
   switch (action.type) {
@@ -16,6 +17,17 @@ export default function users (state = {}, action) {
             ...state[action.authedUser].answers,
             [action.qid]: action.answer
           }
+        }
+      }
+    case CREATE_QUESTION:
+      return {
+        ...state,
+        [action.question.author]: {
+          ...state[action.question.author],
+          questions: [
+            ...state[action.question.author].questions,
+            action.question.id
+          ]
         }
       }
     default:
