@@ -26,16 +26,15 @@ function createQuestion(question) {
   }
 }
 
-export function handleSaveQuestion({ optionOneText, optionTwoText }) {
+export function handleSaveQuestion({ optionOneText, optionTwoText }, cb) {
   return (dispatch, getState) => {
     saveQuestion({
       optionOneText,
       optionTwoText,
       author: getState().authedUser
     })
-    .then((question) => {
-      dispatch(createQuestion(question))
-    });
+    .then((question) => dispatch(createQuestion(question)))
+    .then(cb);
   }
 }
 
