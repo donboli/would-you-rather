@@ -1,10 +1,36 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Menu, Button } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
+import { setAuthedUser } from 'actions/authedUser';
+
 class Navbar extends Component {
+  authenticationItem = (location, authedUser, logout) => {
+    let item;
+
+    if (authedUser) {
+      item = <Menu.Item
+        name='logout'
+        onClick={logout}
+        as={Button}>
+        Logout
+      </Menu.Item>
+    } else {
+      item = <Menu.Item
+        name='login'
+        active={location.pathname === '/login'}
+        as={Link}
+        to='/login'>
+        Login
+      </Menu.Item>
+    }
+
+    return item;
+  }
+
   render() {
-    const { location } = this.props
+    const { location, authedUser, logout } = this.props;
 
     return (
       <Menu>
@@ -33,17 +59,23 @@ class Navbar extends Component {
         </Menu.Item>
 
         <Menu.Menu position='right'>
-          <Menu.Item
-            name='login'
-            active={location.pathname === '/login'}
-            as={Link}
-            to='/login'>
-            Login
-          </Menu.Item>
+          {this.authenticationItem(location, authedUser, logout) }
         </Menu.Menu>
       </Menu>
     )
   }
 }
 
-export default withRouter(Navbar);
+const mapStateToProps = ({authedUser}) => {
+  return {
+    authedUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(setAuthedUser(null))
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));

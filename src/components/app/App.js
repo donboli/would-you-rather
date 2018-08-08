@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import { handleInitialData } from 'actions/shared';
 
@@ -13,8 +13,10 @@ class App extends Component {
   }
 
   render() {
-    if (this.props.loading) {
-      return <div>Loading...</div>;
+    const { location, loggedIn } = this.props;
+
+    if (!loggedIn && location.pathname !== '/login') {
+      return <Redirect to="/login"/>;
     }
 
     return (
@@ -28,7 +30,7 @@ class App extends Component {
 
 const mapStateToProps = ({ authedUser }) => {
   return {
-    loading: authedUser === null
+    loggedIn: authedUser !== null
   };
 }
 

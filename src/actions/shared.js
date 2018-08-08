@@ -1,10 +1,8 @@
 import { getInitialData, saveQuestion, saveQuestionAnswer } from '../utils/api';
 import { receiveUsers } from './users';
 import { receiveQuestions } from './questions';
-import { setAuthedUser } from './authedUser';
 
 // TODO: make user selectable
-const AUTHED_ID = 'johndoe'
 export const CREATE_QUESTION = 'CREATE_QUESTION'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'
 
@@ -14,7 +12,6 @@ export function handleInitialData () {
       .then(({users, questions}) => {
         dispatch(receiveUsers(users));
         dispatch(receiveQuestions(questions));
-        dispatch(setAuthedUser(AUTHED_ID));
       });
   };
 }

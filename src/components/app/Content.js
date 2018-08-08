@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from '../home/Home';
 import { NewQuestion, Question } from '../question';
 import { Leaderboard } from '../leaderboard/Leaderboard';
-import { Login } from '../login/Login';
+import Login from '../login/Login';
 
 export class Content extends Component {
   render () {
