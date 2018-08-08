@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Menu, Button } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
@@ -6,18 +6,27 @@ import { Link, withRouter } from 'react-router-dom';
 import { setAuthedUser } from 'actions/authedUser';
 
 class Navbar extends Component {
-  authenticationItem = (location, authedUser, logout) => {
-    let item;
+  authenticationSection = (location, authedUserData, logout) => {
+    let section;
 
-    if (authedUser) {
-      item = <Menu.Item
-        name='logout'
-        onClick={logout}
-        as={Button}>
-        Logout
-      </Menu.Item>
+    if (authedUserData) {
+      section = (
+        <Fragment>
+          <Menu.Item>
+            {authedUserData.name}
+            &nbsp;
+            <img src={authedUserData.avatarURL}/>
+          </Menu.Item>
+          <Menu.Item
+            name='logout'
+            onClick={logout}
+            as={Button}>
+            Logout
+          </Menu.Item>
+        </Fragment>
+      )
     } else {
-      item = <Menu.Item
+      section = <Menu.Item
         name='login'
         active={location.pathname === '/login'}
         as={Link}
@@ -26,11 +35,11 @@ class Navbar extends Component {
       </Menu.Item>
     }
 
-    return item;
+    return section;
   }
 
   render() {
-    const { location, authedUser, logout } = this.props;
+    const { location, authedUserData, logout } = this.props;
 
     return (
       <Menu>
@@ -59,16 +68,18 @@ class Navbar extends Component {
         </Menu.Item>
 
         <Menu.Menu position='right'>
-          {this.authenticationItem(location, authedUser, logout) }
+          {this.authenticationSection(location, authedUserData, logout) }
         </Menu.Menu>
       </Menu>
     )
   }
 }
 
-const mapStateToProps = ({authedUser}) => {
+const mapStateToProps = ({authedUser, users}) => {
+  const authedUserData = users ? users[authedUser] : null
+
   return {
-    authedUser
+    authedUserData
   }
 }
 
