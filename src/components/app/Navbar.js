@@ -15,7 +15,7 @@ class Navbar extends Component {
           <Menu.Item>
             {authedUserData.name}
             &nbsp;
-            <img src={authedUserData.avatarURL}/>
+            <img src={authedUserData.avatarURL} alt="Avatar"/>
           </Menu.Item>
           <Menu.Item
             name='logout'
