@@ -5,6 +5,7 @@ import Home from '../home/Home';
 import { NewQuestion, Question } from '../question';
 import Leaderboard from '../leaderboard/Leaderboard';
 import Login from '../login/Login';
+import { NotFound } from '../errors/NotFound';
 
 export class Content extends Component {
   render () {
@@ -15,6 +16,7 @@ export class Content extends Component {
         <Route exact path="/leaderboard" component={Leaderboard} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/questions/:question_id" component={Question} />
+        <Route exact path="/404" component={NotFound} />
       </Switch>
     )
   }

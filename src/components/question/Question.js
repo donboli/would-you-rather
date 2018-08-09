@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { Card, Image, Button } from 'semantic-ui-react';
 
 import { handleAnswerQuestion } from '../../actions/shared';
@@ -19,7 +19,7 @@ class Question extends Component {
     const { authorInfo, question } = this.props;
 
     if (question) {
-      // TODO: Redirect to 404
+      <Redirect to='/404'/>
     }
 
     return (
