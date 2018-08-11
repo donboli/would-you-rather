@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Segment, Icon, Grid } from 'semantic-ui-react';
+import React from 'react';
+import { Grid, Icon, Segment } from 'semantic-ui-react';
 
 export const NotFound = () => {
   return (

@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Redirect } from 'react-router-dom';
-import { Card, Image, Button, Progress, Accordion } from 'semantic-ui-react';
+import { Redirect, withRouter } from 'react-router-dom';
+import { Button, Card, Image, Progress } from 'semantic-ui-react';
 
 import { handleAnswerQuestion } from '../../actions/shared';
 
@@ -11,8 +11,6 @@ class Question extends Component {
       this.props.saveQuestionAnswer({
         qid: this.props.question.id,
         answer
-      }, () => {
-        this.props.history.push(`/`);
       });
     }
   }
@@ -20,8 +18,8 @@ class Question extends Component {
   render () {
     const { authorInfo, question, answer } = this.props;
 
-    if (question) {
-      <Redirect to='/404'/>
+    if (!question) {
+      return <Redirect to='/404'/>
     }
 
     return (
@@ -74,7 +72,7 @@ class Question extends Component {
               value={question[answer].votes.length}
               total={question['optionOne'].votes.length + question['optionTwo'].votes.length}
               color='teal'
-              progress='percentage'>
+              progress='percent'>
               opted for this answer
             </Progress>
           </Card.Content>
