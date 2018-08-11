@@ -7,19 +7,24 @@ import { handleAnswerQuestion } from '../../actions/shared';
 
 class Question extends Component {
   saveQuestionAnswer(answer) {
-    this.props.saveQuestionAnswer({
-      qid: this.props.question.id,
-      answer
-    }, () => {
-      this.props.history.push(`/`);
-    });
+    if (!this.props.answer) {
+      this.props.saveQuestionAnswer({
+        qid: this.props.question.id,
+        answer
+      }, () => {
+        this.props.history.push(`/`);
+      });
+    }
   }
 
   render () {
-    const { authorInfo, question } = this.props;
+    const { authorInfo, question, answer } = this.props;
 
-    if (question) {
-      <Redirect to='/404'/>
+    // if (question) {
+    //   <Redirect to='/404'/>
+    // }
+    if (!authorInfo || !question) {
+      return <div>loading</div>
     }
 
     return (
@@ -30,33 +35,61 @@ class Question extends Component {
           <Card.Meta>{ authorInfo.name }</Card.Meta>
         </Card.Content>
         <Card.Content extra>
-          <div className='ui two buttons'>
-            <Button
-              basic
-              color='green'
-              onClick={this.saveQuestionAnswer.bind(this, 'optionOne')}>
-              {question.optionOne.text}
-            </Button>
-            <Button
-              basic
-              color='red'
-              onClick={this.saveQuestionAnswer.bind(this, 'optionTwo')}>
-              {question.optionTwo.text}
-          </Button>
-          </div>
+          { answer ? (
+            <div className='ui two buttons'>
+              <Button
+                basic={!(answer === 'optionOne')}
+                disabled={!(answer === 'optionOne')}
+                color='green'
+                onClick={this.saveQuestionAnswer.bind(this, 'optionOne')}>
+                {question.optionOne.text}
+              </Button>
+              <Button.Or />
+              <Button
+                basic={!(answer === 'optionTwo')}
+                disabled={!(answer === 'optionTwo')}
+                color='red'
+                onClick={this.saveQuestionAnswer.bind(this, 'optionTwo')}>
+                {question.optionTwo.text}
+              </Button>
+            </div>
+          ) : (
+              <div className='ui two buttons'>
+                <Button
+                  basic
+                  color='green'
+                  onClick={this.saveQuestionAnswer.bind(this, 'optionOne')}>
+                  {question.optionOne.text}
+                </Button>
+                <Button.Or />
+                <Button
+                  basic
+                  color='red'
+                  onClick={this.saveQuestionAnswer.bind(this, 'optionTwo')}>
+                  {question.optionTwo.text}
+                </Button>
+              </div>
+          ) }
         </Card.Content>
       </Card>
     )
   }
 }
 
-const mapStateToProps = ({ questions, users }, ownProps) => {
+const mapStateToProps = ({ questions, users, authedUser }, ownProps) => {
   const question = questions[ownProps.match.params.question_id];
-  const authorInfo = question ? users[question.author] : null
+  const authorInfo = question ? users[question.author] : null;
+  const authedUserInfo = authedUser ? users[authedUser] : null;
+  let answer = false;
+
+  if (authedUserInfo && question) {
+    answer = authedUserInfo.answers[question.id];
+  }
 
   return {
     question,
-    authorInfo
+    authorInfo,
+    answer
   }
 };
 
