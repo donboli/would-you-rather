@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import { Card, Image, Button } from 'semantic-ui-react';
+import { Card, Image, Button, Progress, Accordion } from 'semantic-ui-react';
 
 import { handleAnswerQuestion } from '../../actions/shared';
 
@@ -20,11 +20,8 @@ class Question extends Component {
   render () {
     const { authorInfo, question, answer } = this.props;
 
-    // if (question) {
-    //   <Redirect to='/404'/>
-    // }
-    if (!authorInfo || !question) {
-      return <div>loading</div>
+    if (question) {
+      <Redirect to='/404'/>
     }
 
     return (
@@ -34,7 +31,7 @@ class Question extends Component {
           <Card.Header>Would You Rather...</Card.Header>
           <Card.Meta>{ authorInfo.name }</Card.Meta>
         </Card.Content>
-        <Card.Content extra>
+        <Card.Content>
           { answer ? (
             <div className='ui two buttons'>
               <Button
@@ -71,6 +68,17 @@ class Question extends Component {
               </div>
           ) }
         </Card.Content>
+        { answer && (
+          <Card.Content extra>
+            <Progress
+              value={question[answer].votes.length}
+              total={question['optionOne'].votes.length + question['optionTwo'].votes.length}
+              color='teal'
+              progress='percentage'>
+              opted for this answer
+            </Progress>
+          </Card.Content>
+        )}
       </Card>
     )
   }
