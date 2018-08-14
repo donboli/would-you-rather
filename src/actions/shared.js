@@ -15,9 +15,9 @@ export function handleInitialData () {
     dispatch(showLoading());
     return getInitialData()
       .then(({users, questions}) => {
-        dispatch(setAuthedUser(authedUser));
         dispatch(receiveUsers(users));
         dispatch(receiveQuestions(questions));
+        dispatch(setAuthedUser(authedUser));
         dispatch(hideLoading());
       });
   };

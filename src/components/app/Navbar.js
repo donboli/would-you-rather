@@ -87,7 +87,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => {
       dispatch(setAuthedUser(null));
-      localStorage.setItem('authedUser', null);
+      localStorage.removeItem('authedUser');
     }
   }
 }

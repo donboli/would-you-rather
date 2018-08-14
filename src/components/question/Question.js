@@ -72,7 +72,7 @@ class Question extends Component {
             value={this.votesInFavor(question, answer)}
             total={this.totalVotes(question)}
             color='teal'
-            precision='0'
+            precision={0}
             progress='percent'>
             opted for this answer
           </Progress>

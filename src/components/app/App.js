@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Redirect } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar'
+import { withRouter } from 'react-router-dom';
 
 import { handleInitialData } from 'actions/shared';
 
-import { Content } from './Content';
+import Content from './Content';
 import Navbar from './Navbar';
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(handleInitialData())
+    this.props.dispatch(handleInitialData());
   }
 
   render() {
-    const { location, loggedIn } = this.props;
-
-    if (!loggedIn && location.pathname !== '/login') {
-      return <Redirect to="/login"/>;
-    }
-
     return (
       <div>
-        <LoadingBar />
+        <LoadingBar/>
         <Navbar/>
         <Content/>
       </div>
@@ -30,10 +24,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ authedUser }) => {
-  return {
-    loggedIn: authedUser !== null
-  };
-}
-
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect()(App));

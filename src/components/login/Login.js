@@ -8,7 +8,6 @@ import { setAuthedUser } from 'actions/authedUser';
 export class Login extends Component {
   handleChange = (e, data) => {
     this.props.login(data.value);
-    this.props.history.push(`/`);
   }
 
   usersToDropdown = (userList) => {
