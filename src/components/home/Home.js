@@ -8,11 +8,11 @@ class Home extends Component {
     const { answered, unanswered } = this.props;
 
     const panes = [
-      { menuItem: 'Answered', render: () => <Tab.Pane attached={false}>
-        {answered.map(question => <QuestionPreview key={question.id} id={question.id}/>) }
-      </Tab.Pane> },
       { menuItem: 'Unanswered', render: () => <Tab.Pane attached={false}>
         {unanswered.map(question => <QuestionPreview key={question.id} id={question.id} />) }
+      </Tab.Pane> },
+      { menuItem: 'Answered', render: () => <Tab.Pane attached={false}>
+        {answered.map(question => <QuestionPreview key={question.id} id={question.id}/>) }
       </Tab.Pane> }
     ]
 
