@@ -54,7 +54,10 @@ const mapStateToProps = ({ users }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (id) => dispatch(setAuthedUser(id))
+    login: (id) => {
+      dispatch(setAuthedUser(id));
+      localStorage.setItem('authedUser', id);
+    }
   }
 }
 

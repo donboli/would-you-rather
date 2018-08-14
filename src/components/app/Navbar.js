@@ -85,7 +85,10 @@ const mapStateToProps = ({authedUser, users}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => dispatch(setAuthedUser(null))
+    logout: () => {
+      dispatch(setAuthedUser(null));
+      localStorage.setItem('authedUser', null);
+    }
   }
 }
 

@@ -1,17 +1,24 @@
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
+
 import { getInitialData, saveQuestion, saveQuestionAnswer } from '../utils/api';
 import { receiveUsers } from './users';
 import { receiveQuestions } from './questions';
+import { setAuthedUser } from './authedUser';
 
 // TODO: make user selectable
 export const CREATE_QUESTION = 'CREATE_QUESTION'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'
+const authedUser = localStorage.getItem('authedUser');
 
 export function handleInitialData () {
   return (dispatch) => {
+    dispatch(showLoading());
     return getInitialData()
       .then(({users, questions}) => {
+        dispatch(setAuthedUser(authedUser));
         dispatch(receiveUsers(users));
         dispatch(receiveQuestions(questions));
+        dispatch(hideLoading());
       });
   };
 }

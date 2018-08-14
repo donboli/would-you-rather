@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
+import LoadingBar from 'react-redux-loading-bar'
 
 import { handleInitialData } from 'actions/shared';
 
@@ -21,6 +22,7 @@ class App extends Component {
 
     return (
       <div>
+        <LoadingBar />
         <Navbar/>
         <Content/>
       </div>

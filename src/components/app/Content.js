@@ -13,18 +13,18 @@ export class Content extends Component {
   render () {
     return (
       <div className='container'>
-        <Switch>
-          <Grid
-            verticalAlign='middle'
-            centered>
+        <Grid
+          verticalAlign='middle'
+          centered>
+          <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/add" component={NewQuestion} />
             <Route exact path="/leaderboard" component={Leaderboard} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/questions/:question_id" component={Question} />
             <Route exact path="/404" component={NotFound} />
-          </Grid>
-        </Switch>
+          </Switch>
+        </Grid>
       </div>
     )
   }
