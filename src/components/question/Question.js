@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import { Button, Card, Image, Progress } from 'semantic-ui-react';
+import { Button, Card, Image, Progress, Segment, Label, Icon, Header } from 'semantic-ui-react';
 
 import { handleAnswerQuestion } from 'actions/shared';
 
@@ -23,59 +23,53 @@ class Question extends Component {
     return question[answer].votes.length;
   }
 
+  unansweredButton = (color, option, question) => (
+    <Button
+      basic
+      color={color}
+      onClick={this.saveQuestionAnswer.bind(this, option)}>
+      {question[option].text}
+    </Button>
+  )
+
   unansweredContent = (question) => {
     return (
       <Card.Content>
         <div className='ui two buttons'>
-          <Button
-            basic
-            color='green'
-            onClick={this.saveQuestionAnswer.bind(this, 'optionOne')}>
-            {question.optionOne.text}
-          </Button>
+          {this.unansweredButton('green', 'optionOne', question) }
           <Button.Or />
-          <Button
-            basic
-            color='red'
-            onClick={this.saveQuestionAnswer.bind(this, 'optionTwo')}>
-            {question.optionTwo.text}
-          </Button>
+          {this.unansweredButton('red', 'optionTwo', question) }
         </div>
       </Card.Content>
     )
   }
 
+  answeredSegment = (color, question, option, answer) => (
+    <Segment
+      padded='very'
+      color={color}>
+      {answer === option && <Label attached='top right' color={color}>Your vote</Label>}
+      <Header size='medium'>{question[option].text}</Header>
+      <Label attached='bottom left'>
+        <Icon name='user circle' />{this.votesInFavor(question, option)}
+      </Label>
+      <Progress
+        value={this.votesInFavor(question, option)}
+        total={this.totalVotes(question)}
+        color='teal'
+        precision={0}
+        progress='percent'>
+        opted for this answer
+      </Progress>
+    </Segment>
+  )
+
   answeredContent = (question, answer) => {
     return (
       <Fragment>
         <Card.Content>
-          <div className = 'ui two buttons' >
-            <Button
-              basic={!(answer === 'optionOne')}
-              disabled={!(answer === 'optionOne')}
-              color='green'
-              onClick={this.saveQuestionAnswer.bind(this, 'optionOne')}>
-              {question.optionOne.text}
-            </Button>
-            <Button.Or />
-            <Button
-              basic={!(answer === 'optionTwo')}
-              disabled={!(answer === 'optionTwo')}
-              color='red'
-              onClick={this.saveQuestionAnswer.bind(this, 'optionTwo')}>
-              {question.optionTwo.text}
-            </Button>
-          </div>
-        </Card.Content>
-        <Card.Content extra>
-          <Progress
-            value={this.votesInFavor(question, answer)}
-            total={this.totalVotes(question)}
-            color='teal'
-            precision={0}
-            progress='percent'>
-            opted for this answer
-          </Progress>
+          {this.answeredSegment('green', question, 'optionOne', answer)}
+          {this.answeredSegment('red', question, 'optionTwo', answer)}
         </Card.Content>
       </Fragment>
     );
