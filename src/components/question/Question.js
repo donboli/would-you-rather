@@ -86,8 +86,8 @@ class Question extends Component {
       <Card>
         <Card.Content>
           <Image floated='right' size='mini' src={authorInfo.avatarURL} />
-          <Card.Header>Would You Rather...</Card.Header>
-          <Card.Meta>{ authorInfo.name }</Card.Meta>
+          <Card.Header>{authorInfo.name} asks</Card.Header>
+          <Card.Meta>Would You Rather...</Card.Meta>
         </Card.Content>
         { answer ? this.answeredContent(question, answer) : this.unansweredContent(question) }
       </Card>
